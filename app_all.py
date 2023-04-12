@@ -18,7 +18,7 @@ def ask_GPT(text):
     return ans.strip()
 
 def ask_GPT_rel(text,rel):
-    openai.api_key = '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'
+    openai.api_key = 'API_KEY'
     prompt = f'对下面这段文本进行关系抽取：“{text}”。抽取出其中的{rel}关系。注意你只需要用一句通顺的话回答关系即可，不用回答实体是什么。回答不需要前缀“关系”等，你需要抽取出尽可能多的关系。'
     response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
