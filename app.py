@@ -25,8 +25,9 @@ def re_extrac(text:str):
     
 
 
+gr.close_all()
 demo = gr.Interface(fn=re_extrac, inputs=gr.Textbox(lines=3,placeholder='请在此处输入文本'), outputs="text",
-                    examples=[['史蒂芬·斯皮尔伯格是美国著名电影导演，曾三次获得奥斯卡，因为执导了辛德勒的名单，拯救大兵瑞恩和斯坦利·库布里克的奇幻之旅']],
+                    examples=[['史蒂芬·斯皮尔伯格是美国著名电影导演，曾三次获得奥斯卡，因为执导了辛德勒的名单，拯救大兵瑞恩和斯坦利·库布里克的奇幻之旅'],['周华健演唱的刀剑如梦是一首非常好听的歌']],
                     title='基于GPT-3.5关系抽取',
                     description='在"text"框输入待分析段落,自动抽取文中关系')
 
