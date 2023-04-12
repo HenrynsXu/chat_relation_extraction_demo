@@ -17,6 +17,16 @@ def ask_GPT(text):
     ans=response['choices'][0]['message']['content']
     return ans.strip()
 
+def ask_GPT_rel(text,rel):
+    openai.api_key = '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'
+    prompt = f'对下面这段文本进行关系抽取：“{text}”。抽取出其中的{rel}关系。注意你只需要用一句通顺的话回答关系即可，不用回答实体是什么。回答不需要前缀“关系”等，你需要抽取出尽可能多的关系。'
+    response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages = [{"role":"user","content":prompt}],
+            temperature=0.5)
+    ans=response['choices'][0]['message']['content']
+    return ans.strip()
+
 def ask_glm_no_rel(text):
     response, _ = model.chat(tokenizer, f'对下面这段文本进行关系抽取：“{text}”。要求为提取其中的实体名称，并确定它们之间的关系。注意你只需要回答关系，回答的模式为“实体1-关系-实体2”，在一行内输出一条关系，并且不用注明“实体1”、“关系”、“实体2”等，你需要抽取出尽可能多的关系。', history=[])
     return response.strip()
@@ -33,7 +43,8 @@ def ask_glm_rel(text,rel):
 def ask_utils(text,model,rel):
     text = text.strip()
     if model == 'GPT-3.5':
-        return ask_GPT(text)
+        if not rel:return ask_GPT(text)
+        else: return ask_GPT_rel(text,rel)
     elif model == 'chatglm-6b':
         if not rel:
             return ask_glm_no_rel(text)
